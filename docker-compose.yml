@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  lamdong_nginx:
+    container_name: lamdong_nginx
+    build: nginx
+    ports:
+      - "8089:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./php8.2:/php8.2
+    networks:
+      - lamdong_network
+  lamdong_tools:
+    container_name: lamdong_php82_sqlserver
+    build: ./php8.2
+    volumes:
+      - ./php8.2/code:/php8.2/code
+    networks:
+      - lamdong_network
+networks:
+  lamdong_network:
+    driver: bridge
